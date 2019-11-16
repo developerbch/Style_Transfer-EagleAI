@@ -1,0 +1,10 @@
+Django>=2.0,<3.0
+mysqlclient
+djangorestframework
+pillow
+django-filter
+firebase-admin
+google-api-core==1.14.3
+pyrebase==3.0.27
+tensorflow==1.14.0
+scipy==1.1.0

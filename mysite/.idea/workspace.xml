@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="09c986bf-f5d1-4bfe-9d2d-034052911227" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1S9UGAS6JkOwpcN4QuewgCxYgQS" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/illusion/templates" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\illusion\templates" />
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\illusion\templates\illusion" />
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\mysite" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\illusion\templates" />
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\illusion" />
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\illusion\static" />
+      <recent name="C:\Users\User\Desktop\vagrant2\ubuntu\mysite\mysite\illusion\templates\illusion" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="09c986bf-f5d1-4bfe-9d2d-034052911227" name="Default Changelist" comment="" />
+      <created>1570975206657</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1570975206657</updated>
+    </task>
+    <servers />
+  </component>
+</project>

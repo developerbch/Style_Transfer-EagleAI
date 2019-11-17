@@ -3,7 +3,7 @@ import tensorflow as tf
 from django.views.decorators.csrf import csrf_exempt
 import os
 from PIL import Image
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 import hashlib
 import re
@@ -14,7 +14,6 @@ import shutil
 import PIL.Image
 
 
-
 # Create your views here.
 
 
@@ -22,18 +21,17 @@ def index(request):
     return render(request, 'illusion/index.html')
 
 
-
-
 from . import utils
 from . import style_transfer_tester
-import time
-#ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+#import time
+
 
 """main"""
 def run_test(content_img, transfer_img,style_model):
     tf.reset_default_graph()
 
-    start_time = time.time()
+    # load content image
+    #start_time = time.time()
     content_image = utils.load_image(content_img)
 
     # open session
@@ -53,10 +51,11 @@ def run_test(content_img, transfer_img,style_model):
 
     # save result
     utils.save_image(output_image, transfer_img)
-    end_time = time.time()
+    #end_time = time.time()
     # report execution time
     shape = content_image.shape #(batch, width, height, channel)
-    print('Execution time for a %d x %d image : %f msec' % (shape[0], shape[1], 1000.*float(end_time - start_time)/60))
+    #print('Execution time for a %d x %d image : %f msec' % (shape[0], shape[1], 1000.*float(end_time - start_time)/60))
+    print('Transfer finished for a %d x %d image.' % (shape[0], shape[1])
 
 
 #ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ^
@@ -75,6 +74,11 @@ def createFolder(directory):
 
 @csrf_exempt
 def preview(request, style_id, url):
+    if style_id is None:
+        return HttpResponseBadRequest()
+    if url is None:
+        return HttpResponseBadRequest()
+
     """
     STEP 0   : Preview 찾기
     STEP 1-1 : content_img 찾기
@@ -83,10 +87,14 @@ def preview(request, style_id, url):
     STEP 2   : preview 생성
     STEP 3   : 이미지 return
     """
-    if re.search("photos", url) is None:
-        url = re.sub("/filter/", "/photos /", url)
-    else :
+    # if re.search("photos", url) is None:
+    #     url = re.sub("/filter/", "/photos /", url)
+    # else :
+    #     url = re.sub("/photos/", "/photos /", url)
+    if re.search("photos", url) is not None:
         url = re.sub("/photos/", "/photos /", url)
+    else:
+        return HttpResponseBadRequest()
 
     url = url.split(" ")
     url[1] = re.sub("/", "%2F", url[1])
@@ -120,7 +128,8 @@ def preview(request, style_id, url):
             return response
 
 
-    # preview_img가 없으면, preview_content_img가 있는지 확인하고 있으면 모델링을 돌리고 해당 이미지를 리턴
+    # preview_img가 없으면, preview_content_img가 있는지 확인하고
+    # 있으면 모델링을 돌리고 해당 이미지를 리턴
     # STEP 1-1
     elif os.path.exists(preview_content_img):
     # STEP 2
@@ -142,11 +151,17 @@ def preview(request, style_id, url):
     # STEP 1-2
     else:
         # 폴더생성
+        resp = req.get(url, stream=True)
+        if not resp:
+            return HttpResponseBadRequest()
         createFolder(directory)
 
 
+
+
         # Open the url image, set stream to True, this will return the stream content.
-        resp = req.get(url, stream=True)
+
+
         # Open a local file with wb ( write binary ) permission.
         local_file = open(preview_content_img, 'wb')
         # Set decode_content value to True, otherwise the downloaded image file's size will be zero.
@@ -155,6 +170,8 @@ def preview(request, style_id, url):
         shutil.copyfileobj(resp.raw, local_file)
         del resp
         local_file.close()
+
+
 
         #resize
         image = Image.open(preview_content_img)
@@ -184,6 +201,10 @@ def preview(request, style_id, url):
 
 @csrf_exempt
 def transfer(request, style_id, url):
+    if style_id is None:
+        return HttpResponseBadRequest()
+    if url is None:
+        return HttpResponseBadRequest()
     """
     STEP 0   : Transfer 찾기
     STEP 1-1 : content_img 찾기
@@ -193,10 +214,15 @@ def transfer(request, style_id, url):
     STEP 3   : 이미지 return
     """
 
-    if re.search("photos", url) is None:
-        url = re.sub("/filter/", "/photos /", url)
-    else :
+
+    if re.search("photos", url) is not None:
         url = re.sub("/photos/", "/photos /", url)
+    else:
+        return HttpResponseBadRequest()
+    # if re.search("photos", url) is None:
+    #     url = re.sub("/filter/", "/photos /", url)
+    # else :
+    #     url = re.sub("/photos/", "/photos /", url)
 
     url = url.split(" ")
     url[1] = re.sub("/", "%2F", url[1])
@@ -249,11 +275,14 @@ def transfer(request, style_id, url):
     # STEP 1-2
     else:
         # 폴더생성
+        resp = req.get(url, stream=True)
+        if not resp:
+            return HttpResponseBadRequest()
         createFolder(directory)
 
 
         # Open the url image, set stream to True, this will return the stream content.
-        resp = req.get(url, stream=True)
+
         # Open a local file with wb ( write binary ) permission.
         local_file = open(content_img, 'wb')
         # Set decode_content value to True, otherwise the downloaded image file's size will be zero.

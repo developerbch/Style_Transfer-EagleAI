@@ -36,20 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'illusion',
-    #'rest_framework',
-    #'django_filters',
 ]
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-#     'PAGINATE_BY': 10
-# }
-
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100,
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -62,8 +49,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
-
-# SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 TEMPLATES = [
     {
@@ -89,13 +74,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'illusion',
-        'USER': 'root',
-        'PASSWORD': '0000',
-        'HOST': '10.0.2.15',
-        'PORT': '3306',
+        'NAME': 'your dbname',
+        'USER': 'your name',
+        'PASSWORD': 'your passwd',
+        'HOST': 'your ip',
+        'PORT': 'your port',
     }
-}
+} # you don't need to select mysql. I recommend sqlite3.
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -133,15 +118,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-MEDIA_URL = '/preview/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'preview')
-
-
-# import firebase_admin
-# from firebase_admin import credentials
-#
-# cred = credentials.Certificate(os.path.join(BASE_DIR, 'credentials.json'))
-# default_app = firebase_admin.initialize_app(cred)
-#
-# auth = default_app.auth()

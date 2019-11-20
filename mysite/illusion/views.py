@@ -40,13 +40,13 @@ def run_test(content_img, transfer_img,style_model):
     sess = tf.Session(config=soft_config)
 
     # build the graph
-    transformer = style_transfer_tester.StyleTransferTester(session=sess,                                                                                   # 체크ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    transformer = style_transfer_tester.StyleTransferTester(session=sess,                  
                                                             model_path=style_model,
                                                             content_image=content_image,
                                                             )
     # execute the graph
 
-    output_image = transformer.test()                                                                                                                      # 체크ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    output_image = transformer.test()
     del transformer
 
     # save result
@@ -56,9 +56,6 @@ def run_test(content_img, transfer_img,style_model):
     shape = content_image.shape #(batch, width, height, channel)
     #print('Execution time for a %d x %d image : %f msec' % (shape[0], shape[1], 1000.*float(end_time - start_time)/60))
     print('Transfer finished for a %d x %d image.' % (shape[0], shape[1])
-
-
-#ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ^
 
 
 
